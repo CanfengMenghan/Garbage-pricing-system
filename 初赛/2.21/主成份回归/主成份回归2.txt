@@ -1,0 +1,69 @@
+stdrx=std(x);
+meanx=mean(x);
+[n,m]=size(x);
+sddatax=x./stdrx(ones(n,1),:);
+stdry=std(y);
+meany=mean(y);
+[n,m]=size(y);
+sddatay=y./stdry(ones(n,1),:);
+correlated=corrcoef(sddatax);
+
+[t,lumda]=eig(correlated); 
+lumda=sum(lumda);
+
+调有几个主成份，要求lumda大于80
+
+x_{1}=(t(:,4))'*sddatax';
+x_{2}=(t(:,3))'*sddatax';
+x_{3}=(t(:,2))'*sddatax';
+
+x__=[x_{1}' x_{2}' x_{3}'];
+
+b=regress( sddatay,  x__ );
+
+k=[];(放进去向量)
+k_=k*b;
+ k__=k_./stdrx'*stdry;是各项系数，常数项meany
+
+
+
+ [b,bint,r,rint,stats]=regress( sddatay,  x__,0.05);
+
+
+
+
+x_{1}=(t(:,4))'*sddatax';
+x_{2}=(t(:,3))'*sddatax';
+x_{3}=(t(:,2))'*sddatax';
+x__=[x_{1}' x_{2}' x_{3}'];
+ [b,bint,r,rint,stats]=regress( sddatay,  x__,0.05);
+k=[];%(放进去向量)
+k_=k*b;
+ k__=k_./stdrx'*stdry;%是各项系数，常数项meany
+l_=k*bint;
+ l__=l_./stdrx'*stdry;%是各项系数，常数项meany
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+r=abs(sum(lumda)); 
+n=find(r==max(r)); 
+max_lumda_A=lumda(n,n); %最大特征根
+max_x_A=x(:,n); 
+max_x_A=max_x_A./sum(max_x_A);%最大特征根所对应的特征向量
+
+ a'{1}=x(:,4)*sddata

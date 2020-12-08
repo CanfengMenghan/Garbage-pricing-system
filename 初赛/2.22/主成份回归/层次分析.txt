@@ -1,0 +1,42 @@
+关于matlab求矩阵的最大特征根的算法,
+你写的源代码：
+%%想要最大特征值所对应的特征向量,只要将相应的max_x_*输出即可
+A=[
+1 1/3 1/5 
+3 1 1/3 
+5 3 1];
+[x,lumda]=eig(A); 
+r=abs(sum(lumda)); 
+n=find(r==max(r)); 
+max_lumda_A=lumda(n,n) %最大特征根
+max_x_A=x(:,n); %最大特征根所对应的特征向量
+
+B=A./sum(A);%将归一化结果存于B中
+
+
+[x,lumda]=eig(correlated); 
+r=abs(sum(lumda)); 
+n=find(r==max(r)); 
+max_lumda_A=lumda(n,n); %最大特征根
+max_x_A=x(:,n); 
+max_x_A=max_x_A./sum(max_x_A);%最大特征根所对应的特征向量
+
+
+
+for i=1:16
+t=c{i}
+[x,lumda]=eig(t); 
+r=abs(sum(lumda)); 
+n=find(r==max(r)); 
+max_lumda_A(1,i)=lumda(n,n); %最大特征根
+max_x_A{i}=x(:,n); %最大特征根所对应的特征向量
+max_x_A{i}=max_x_A{i}./sum(max_x_A{i})
+end
+
+stdr=std(x);
+ [n,m]=size(x);
+ sddata=x./stdr(ones(n,1),:);
+ [p,princ,egenvalue]=princomp(sddata);
+ p3=p(:,1:3);
+ sc=princ(:,1:3);
+per=100*egenvalue/sum(egenvalue);
